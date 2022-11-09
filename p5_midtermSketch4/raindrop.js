@@ -1,23 +1,29 @@
+// Si Yue Jiang - Creative Coding F22 Midterm
+
 class Raindrop{
   constructor(){
     this.raindropLoops = 0 + random(-5,2);
     this.splashLoops = 0;
-    this.raindropLength = random(300,500);
+    this.raindropLength = random(100,250);
     this.position = createVector(random(0,width), 0 - random(this.raindropLength,height));
     this.splashPosition = createVector(this.position.x, random(600,height));
+    this.acceleration = createVector(0, 1);
   }
 
   updateRaindropPosition(){
-    this.position.y += 100;
+    this.position.y += this.acceleration.y;
+    this.acceleration.y = this.acceleration.y + 3;
 
-    if ( this.position.y > this.splashPosition.y && this.raindropLoops < 10){
-      this.position.x = random(0,width);
-      this.position.y = 0 - random(0,height);
+    if ( this.position.y > this.splashPosition.y && this.raindropLoops < 8){
       this.splashPosition.x = this.position.x;
       this.splashPosition.y = random(600,height);
       this.raindropLength = random(300,500);
       this.raindropLoops++;
     }
+  }
+
+  raindropSplashed(){
+    return this.position.y > this.splashPosition.y && this.raindropLoops < 8;
   }
 
   drawRaindrop(){
