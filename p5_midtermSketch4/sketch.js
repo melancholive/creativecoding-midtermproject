@@ -82,12 +82,6 @@ function draw() {
     rect(0, 690, width, height - 690);
     rect(0, 740, width, height - 740);
   }
-  
-
-
-  
-
-
 
   // automated creating raindrop objects
   // no more raindrops made after a certain point
@@ -109,9 +103,6 @@ function draw() {
     b.drawBranch();
   }
 
-  print(millis());
+  // print(millis());
 
 }
-
-  
-

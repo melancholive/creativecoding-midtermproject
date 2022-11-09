@@ -2,43 +2,41 @@
 
 class Raindrop{
   constructor(){
-    this.raindropLoops = 0 + random(-5,2);
-    this.splashLoops = 0;
+    this.time = 1+random(-20, 20);
     this.raindropLength = random(100,250);
     this.position = createVector(random(0,width), 0 - random(this.raindropLength,height));
-    this.splashPosition = createVector(this.position.x, random(600,height));
-    this.acceleration = createVector(0, 1);
+    this.splashPosition = createVector(this.position.x, random(650,height));
+    this.acceleration = createVector(1, 1);
+    this.splashed = false;
   }
 
   updateRaindropPosition(){
     this.position.y += this.acceleration.y;
     this.acceleration.y = this.acceleration.y + 3;
 
-    if ( this.position.y > this.splashPosition.y && this.raindropLoops < 8){
-      this.splashPosition.x = this.position.x;
-      this.splashPosition.y = random(600,height);
-      this.raindropLength = random(300,500);
-      this.raindropLoops++;
-    }
-  }
 
-  raindropSplashed(){
-    return this.position.y > this.splashPosition.y && this.raindropLoops < 8;
+    if ( this.position.y > this.splashPosition.y && this.time < 50){
+        this.drawRaindropSplash(1,1);
+        this.drawRaindropSplash(2, 1.2);
+        this.drawRaindropSplash(3, 1.3);
+    }
   }
 
   drawRaindrop(){
     noStroke();
-    fill(138, 175, 255, 100); // transparent medium blue
+    fill(191, 234, 255, 100); // transparent light blue
     rect(this.position.x, this.position.y, 2, this.raindropLength);
 
-    if ( height - this.raindropLength == this.position.y){
-      drawRaindropSplash();
-    }
   }
 
-  drawRaindropSplash(){
-    stroke(255);
-    strokeWeight(0.7);
-    ellipse(this.splashPosition.x, this.splashPosition.y, 100, 15);
+  drawRaindropSplash(x,y){
+    this.time++;
+    stroke(191, 234, 255);
+    strokeWeight(0.7-this.acceleration.x);
+    fill(191, 234, 255, 10);
+    push();
+    this.acceleration.x += 0.1;
+    ellipse(this.splashPosition.x, this.splashPosition.y, 5*this.acceleration.x*x, 0.7*this.acceleration.x*y);
+    pop();
   }
 }

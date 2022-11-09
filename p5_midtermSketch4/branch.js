@@ -11,10 +11,6 @@ class Branch{
 		stroke(255);
 		strokeWeight(1);
 
-		if (count >= this.targetPosition.y){
-			count++;
-		}
-
 		line(this.position.x, this.position.y, this.position.x,this.position.y);
 
 	}

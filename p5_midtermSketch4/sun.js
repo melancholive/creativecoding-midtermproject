@@ -4,8 +4,9 @@ class Sun{
   constructor(){
     this.position = createVector(width/2,height+300);
     this.loops = 1;
-    this.brightness = 0;
-    this.boolean = true;
+    this.increasing = true;
+    this.brightness = 0
+    this.acceleration = 1;
   }
 
   updateSunPosition(){
@@ -16,16 +17,24 @@ class Sun{
 
   drawSun(){
     strokeWeight(0.7);
-    if (millis() > 12000 && loops < 200){
-      this.loops++;
-    } else if (millis() > 12000 ){
-      this.loops--;
+    if (millis() > 12000){
+      this.acceleration += 0.005;
+      if (this.loops >= 100){
+        this.loops -= 1.5;
+        this.increasing = false;
+      } else if (this.increasing == true ){
+        this.loops += 1.5;
+      } else {
+        this.loops -= 1.5*this.acceleration;
+      }
     }
 
-    if (millis() % 50 && millis() > 15000 && this.brightness < 80 ){
-      this.brightness++;
-    }
+    print(this.loops);
 
+      if (millis() % 50 && millis() > 15000 && this.brightness < 80 ){
+        this.brightness++;
+      }
+    
     stroke(138 + this.brightness, 175 + this.brightness, 255 + this.brightness); // medium blue
     fill(138 + this.brightness, 175 + this.brightness, 255 + this.brightness, 20 + this.brightness); // medium blue
     circle(this.position.x, this.position.y, 1600*1.2+this.loops);
