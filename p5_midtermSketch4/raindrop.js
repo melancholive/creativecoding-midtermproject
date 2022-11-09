@@ -5,7 +5,7 @@ class Raindrop{
     this.time = 1+random(-20, 20);
     this.raindropLength = random(100,250);
     this.position = createVector(random(0,width), 0 - random(this.raindropLength,height));
-    this.splashPosition = createVector(this.position.x, random(650,height));
+    this.splashPosition = createVector(this.position.x, random(600,height));
     this.acceleration = createVector(1, 1);
     this.splashed = false;
   }
@@ -31,12 +31,15 @@ class Raindrop{
 
   drawRaindropSplash(x,y){
     this.time++;
-    stroke(191, 234, 255);
+    stroke(191, 234, 255); // light blue
     strokeWeight(0.7-this.acceleration.x);
-    fill(191, 234, 255, 10);
+    fill(191, 234, 255, 10); // light blue
     push();
     this.acceleration.x += 0.1;
     ellipse(this.splashPosition.x, this.splashPosition.y, 5*this.acceleration.x*x, 0.7*this.acceleration.x*y);
+    noStroke();
+    fill(153, 180, 255, 10); // medium blue --> for shadow
+    ellipse(this.splashPosition.x, this.splashPosition.y+5, 5*this.acceleration.x*x, 0.7*this.acceleration.x*y);
     pop();
   }
 }

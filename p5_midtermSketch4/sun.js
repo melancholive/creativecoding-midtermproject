@@ -29,8 +29,6 @@ class Sun{
       }
     }
 
-    print(this.loops);
-
       if (millis() % 50 && millis() > 15000 && this.brightness < 80 ){
         this.brightness++;
       }
